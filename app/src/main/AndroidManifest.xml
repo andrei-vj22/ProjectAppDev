@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectAppDev">
         <activity
-            android:name=".Profile"
-            android:exported="false" />
-        <activity
             android:name=".Home"
             android:exported="true" />
         <activity

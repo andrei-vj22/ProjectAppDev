@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile">
+
+    <ImageView
+        android:id="@+id/img_goback2"
+        android:layout_width="33dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="174dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrowback"
+        app:tint="#000000" />
+
+    <LinearLayout
+        android:layout_width="414dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="645dp"
+        android:background="#E0B227"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Profile"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="31dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

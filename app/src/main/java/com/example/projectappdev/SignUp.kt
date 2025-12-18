@@ -68,7 +68,7 @@ class SignUp : AppCompatActivity() {
                         con.collection("tbl_users").document(userid).set(values)
                             .addOnSuccessListener {
                                 Toast.makeText(this, "Account Created Successfully", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this, Home::class.java)
+                                val intent = Intent(this, SignIn::class.java)
                                 startActivity(intent)
                             }
                     }

@@ -12,35 +12,51 @@
         android:id="@+id/btnStartJournal"
         android:layout_width="275dp"
         android:layout_height="45dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="68dp"
         android:backgroundTint="#E2B223"
         android:text="Start Today's Journal"
         android:textColor="#000000"
         app:cornerRadius="8dp"
-        tools:layout_editor_absoluteX="68dp"
-        tools:layout_editor_absoluteY="170dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="113dp"
         android:text="Good day, Andrei!"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="111dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_date" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/outline_account_circle_24"
-        tools:layout_editor_absoluteX="371dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginStart="371dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/outline_account_circle_24" />
 
     <TextView
         android:id="@+id/txt_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="177dp"
+        android:layout_marginTop="71dp"
+        android:layout_marginEnd="176dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="71dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

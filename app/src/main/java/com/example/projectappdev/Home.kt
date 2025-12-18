@@ -24,7 +24,7 @@ class Home : AppCompatActivity() {
         val dateTextView: TextView = findViewById(R.id.txt_date)
 
 
-        val formattedDate = DateFormat.format("dd/MM/yyyy", System.currentTimeMillis())
+        val formattedDate = DateFormat.format("EEEE, MMM d", System.currentTimeMillis())
 
         dateTextView.text = formattedDate
     }

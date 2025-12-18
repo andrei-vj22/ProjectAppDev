@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "852979375263",
+    "project_id": "journo-70b01",
+    "storage_bucket": "journo-70b01.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852979375263:android:b849329a45f8168e14d6aa",
+        "android_client_info": {
+          "package_name": "com.example.projectappdev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852979375263-20o0n7tc37uvqvk6op5u7aarti7l03r0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.projectappdev",
+            "certificate_hash": "02242f4b0d3319e5cbd07a8259ee015db760bf80"
+          }
+        },
+        {
+          "client_id": "852979375263-9t1jh0bu86912me252lnl612dcfpuoeq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm5RksuwQQzkwgIUp5sVClSSoib_oF3Vs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852979375263-9t1jh0bu86912me252lnl612dcfpuoeq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

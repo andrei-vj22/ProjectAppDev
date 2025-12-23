@@ -53,23 +53,22 @@ class mwselection : AppCompatActivity() {
             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        // --- 2. TIME SETUP ---
+        // --- 2. TIME SETUP (UPDATED) ---
         val tvTime = findViewById<TextView>(R.id.tvCurrentTime)
 
-        // Initial text (Current Time): "12:30"
-        tvTime.text = DateFormat.format("HH:mm", calendar)
+        // Change format to "hh:mm aa" (e.g., 01:30 PM)
+        tvTime.text = DateFormat.format("hh:mm aa", calendar)
 
-        // Time Picker Listener
         tvTime.setOnClickListener {
             TimePickerDialog(this, { _, hour, minute ->
-                // 1. Update the calendar variable
+                // Update calendar with new time
                 calendar.set(Calendar.HOUR_OF_DAY, hour)
                 calendar.set(Calendar.MINUTE, minute)
 
-                // 2. Format it (HH:mm ensures 09:05 instead of 9:5)
-                tvTime.text = DateFormat.format("HH:mm", calendar)
+                // Format automatically handles conversion to AM/PM
+                tvTime.text = DateFormat.format("hh:mm aa", calendar)
 
-            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show() // true = 24 hour mode
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show() // 'false' = 12-hour picker
         }
 
         // --- BACK BUTTON ---

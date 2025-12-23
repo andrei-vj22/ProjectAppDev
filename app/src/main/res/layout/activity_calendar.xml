@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="67"
+            android:text="0"
             android:textSize="48sp"
             android:textStyle="bold" />
 
@@ -78,24 +78,24 @@
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center"
             android:text="Total Journals"
             android:textSize="24sp" />
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="469dp"
             android:orientation="vertical">
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/calendarView"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:mcv_calendarMode="month"
                 app:mcv_selectionColor="#6200EE"
-                app:mcv_showOtherDates="all"
-                app:mcv_calendarMode="month" />
+                app:mcv_showOtherDates="all" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvJournalEntries"
@@ -104,5 +104,47 @@
                 android:padding="16dp" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#DCB027"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:tint="#FDFDFD"
+                app:srcCompat="@drawable/outline_account_balance_24" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="0"
+                app:cardBackgroundColor="#333D50"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:tint="#FDFDFD"
+                    app:srcCompat="@drawable/outline_add_24" />
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:tint="#FDFDFD"
+                app:srcCompat="@drawable/outline_calendar_month_24" />
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

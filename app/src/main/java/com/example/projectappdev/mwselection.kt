@@ -14,87 +14,158 @@ import com.google.firebase.firestore.FirebaseFirestore
 import android.widget.*
 import android.content.Intent
 import android.text.format.DateFormat
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import java.util.Calendar
 class mwselection : AppCompatActivity() {
+    private var selectedMoodText: String? = null
+    private var selectedMoodIcon: String? = null
+    private var selectedWeatherText: String? = null
+    private var selectedWeatherIcon: String? = null
+    private val calendar = Calendar.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_mwselection)
+
+        // Window Insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        // --- BACK BUTTON LOGIC ---
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        btnBack.setOnClickListener {
-            finish() // Returns to Home
+
+        // --- 1. DATE SETUP ---
+        val tvDate = findViewById<TextView>(R.id.tvCurrentDate)
+
+        // Initial text (Current Date): "January 21, 2025"
+        tvDate.text = DateFormat.format("MMMM dd, yyyy", calendar)
+
+        // Date Picker Listener
+        tvDate.setOnClickListener {
+            DatePickerDialog(this, { _, year, month, day ->
+                // 1. Update the calendar variable with user choice
+                calendar.set(year, month, day)
+
+                // 2. Format it using Android DateFormat and update TextView
+                tvDate.text = DateFormat.format("MMMM dd, yyyy", calendar)
+
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        // --- DATE & TIME LOGIC (Using android.text.format.DateFormat) ---
-        val tvDate = findViewById<TextView>(R.id.tvCurrentDate)
+        // --- 2. TIME SETUP (UPDATED) ---
         val tvTime = findViewById<TextView>(R.id.tvCurrentTime)
 
-        // Get current system time
-        val now = System.currentTimeMillis()
+        // Change format to "hh:mm aa" (e.g., 01:30 PM)
+        tvTime.text = DateFormat.format("hh:mm aa", calendar)
 
-        // Format: "Today, 21 January"
-        // "MMMM" = Full month name
-        val dateString = "Today, " + DateFormat.format("d MMMM", now)
+        tvTime.setOnClickListener {
+            TimePickerDialog(this, { _, hour, minute ->
+                // Update calendar with new time
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
 
-        // Format: "12:14"
-        val timeString = DateFormat.format("HH:mm", now)
+                // Format automatically handles conversion to AM/PM
+                tvTime.text = DateFormat.format("hh:mm aa", calendar)
 
-        tvDate.text = dateString
-        tvTime.text = timeString
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show() // 'false' = 12-hour picker
+        }
 
-        // --- MOOD SELECTION LOGIC ---
+        // --- BACK BUTTON ---
+        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
+            finish()
+        }
+
         setupMoodListeners()
+        setupWeatherListeners()
+
+        // Next Button
+        findViewById<Button>(R.id.btnNext).setOnClickListener {
+            if (selectedMoodText != null && selectedWeatherText != null) {
+                //val intent = Intent(this, entrypage::class.java)
+                intent.putExtra("moodtext", selectedMoodText)
+                intent.putExtra("moodicon", selectedMoodIcon)
+                intent.putExtra("weathertext", selectedWeatherText)
+                intent.putExtra("weathericon", selectedWeatherIcon)
+                // Pass the strings directly from the TextViews
+                intent.putExtra("datetext", tvDate.text.toString())
+                intent.putExtra("timetext", tvTime.text.toString())
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Must Select Mood & Weather", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupMoodListeners() {
-        val btnRad = findViewById<LinearLayout>(R.id.btnMoodSplendid)
-        val btnGood = findViewById<LinearLayout>(R.id.btnMoodGood)
-        val btnMeh = findViewById<LinearLayout>(R.id.btnMoodMeh)
-        val btnBad = findViewById<LinearLayout>(R.id.btnMoodBad)
-        val btnAwful = findViewById<LinearLayout>(R.id.btnMoodAwful)
+        val moodLayouts = listOf(
+            findViewById<LinearLayout>(R.id.btnMoodSplendid),
+            findViewById<LinearLayout>(R.id.btnMoodGood),
+            findViewById<LinearLayout>(R.id.btnMoodMeh),
+            findViewById<LinearLayout>(R.id.btnMoodBad),
+            findViewById<LinearLayout>(R.id.btnMoodAwful)
+        )
 
-        // 1. RAD Listener
-        btnRad.setOnClickListener {
-            // We pass "verygood" because that matches your drawable filename: @drawable/verygood
-            goToJournalEntry("Splendid", "verygood")
+        // Helper to update selection
+        fun selectMood(layout: LinearLayout, text: String, icon: String) {
+            selectedMoodText = text
+            selectedMoodIcon = icon
+
+            // Visual Feedback: Dim all, Highlight selected
+            moodLayouts.forEach { it.alpha = 0.4f } // Dim others
+            layout.alpha = 1.0f // Highlight selected
         }
 
-        // 2. GOOD Listener
-        btnGood.setOnClickListener {
-            // We pass "outline_mood_24" to match your drawable: @drawable/outline_mood_24
-            goToJournalEntry("Good", "outline_mood_24")
+        moodLayouts[0].setOnClickListener {
+            selectMood(it as LinearLayout, "Splendid", "verygood")
         }
-
-        // 3. MEH Listener
-        btnMeh.setOnClickListener {
-            goToJournalEntry("Meh", "midatbest")
+        moodLayouts[1].setOnClickListener {
+            selectMood(it as LinearLayout, "Good", "outline_mood_24")
         }
-
-        // 4. BAD Listener
-        btnBad.setOnClickListener {
-            goToJournalEntry("Bad", "moodbad")
+        moodLayouts[2].setOnClickListener {
+            selectMood(it as LinearLayout, "Meh", "midatbest")
         }
-
-        // 5. AWFUL Listener
-        btnAwful.setOnClickListener {
-            goToJournalEntry("Awful", "verybad")
+        moodLayouts[3].setOnClickListener {
+            selectMood(it as LinearLayout, "Bad", "moodbad")
+        }
+        moodLayouts[4].setOnClickListener {
+            selectMood(it as LinearLayout, "Awful", "verybad")
         }
     }
 
-    // Helper function to avoid rewriting the intent code 5 times
-    private fun goToJournalEntry(moodText: String, iconName: String) {
-        // REPLACE 'JournalEntryActivity::class.java' with the actual name of your next page
-        //val intent = Intent(this, entrypage::class.java)
+    private fun setupWeatherListeners() {
+        val weatherLayouts = listOf(
+            findViewById<LinearLayout>(R.id.btnWeatherSunny),
+            findViewById<LinearLayout>(R.id.btnWeatherClouds),
+            findViewById<LinearLayout>(R.id.btnWeatherRain),
+            findViewById<LinearLayout>(R.id.btnWeatherSnow),
+            findViewById<LinearLayout>(R.id.btnWeatherStorm)
+        )
 
-        // Pass the data
-        intent.putExtra("MOOD_TEXT", moodText)
-        intent.putExtra("MOOD_ICON_NAME", iconName)
+        // Helper to update selection
+        fun selectWeather(layout: LinearLayout, text: String, icon: String) {
+            selectedWeatherText = text
+            selectedWeatherIcon = icon
 
-        startActivity(intent)
+            // Visual Feedback: Dim all, Highlight selected
+            weatherLayouts.forEach { it.alpha = 0.4f } // Dim others
+            layout.alpha = 1.0f // Highlight selected
+        }
+
+        weatherLayouts[0].setOnClickListener {
+            selectWeather(it as LinearLayout, "Sunny", "sunny")
+        }
+        weatherLayouts[1].setOnClickListener {
+            selectWeather(it as LinearLayout, "Cloudy", "cloudy")
+        }
+        weatherLayouts[2].setOnClickListener {
+            selectWeather(it as LinearLayout, "Rainy", "rainy")
+        }
+        weatherLayouts[3].setOnClickListener {
+            selectWeather(it as LinearLayout, "Snowy", "snowy")
+        }
+        weatherLayouts[4].setOnClickListener {
+            selectWeather(it as LinearLayout, "Stormy", "stormy")
+        }
     }
 }

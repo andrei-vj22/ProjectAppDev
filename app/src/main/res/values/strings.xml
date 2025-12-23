@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ProjectAppDev</string>
+    <string name="default_web_client_id">852979375263-9t1jh0bu86912me252lnl612dcfpuoeq.apps.googleusercontent.com</string>
+
 </resources>

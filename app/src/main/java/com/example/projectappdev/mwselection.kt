@@ -20,6 +20,7 @@ import java.util.Calendar
 class mwselection : AppCompatActivity() {
     private var selectedMoodText: String? = null
     private var selectedMoodIcon: String? = null
+    private var selectedMoodColor: String? = null
     private var selectedWeatherText: String? = null
     private var selectedWeatherIcon: String? = null
     private val calendar = Calendar.getInstance()
@@ -82,9 +83,10 @@ class mwselection : AppCompatActivity() {
         // Next Button
         findViewById<Button>(R.id.btnNext).setOnClickListener {
             if (selectedMoodText != null && selectedWeatherText != null) {
-                //val intent = Intent(this, entrypage::class.java)
+                val intent = Intent(this, journalentry::class.java)
                 intent.putExtra("moodtext", selectedMoodText)
                 intent.putExtra("moodicon", selectedMoodIcon)
+                intent.putExtra("moodcolor", selectedMoodColor)
                 intent.putExtra("weathertext", selectedWeatherText)
                 intent.putExtra("weathericon", selectedWeatherIcon)
                 // Pass the strings directly from the TextViews
@@ -107,30 +109,22 @@ class mwselection : AppCompatActivity() {
         )
 
         // Helper to update selection
-        fun selectMood(layout: LinearLayout, text: String, icon: String) {
+        fun selectMood(layout: LinearLayout, text: String, icon: String, hexColor: String) {
             selectedMoodText = text
             selectedMoodIcon = icon
+            selectedMoodColor = hexColor // Store it
 
             // Visual Feedback: Dim all, Highlight selected
             moodLayouts.forEach { it.alpha = 0.4f } // Dim others
             layout.alpha = 1.0f // Highlight selected
         }
 
-        moodLayouts[0].setOnClickListener {
-            selectMood(it as LinearLayout, "Splendid", "verygood")
-        }
-        moodLayouts[1].setOnClickListener {
-            selectMood(it as LinearLayout, "Good", "outline_mood_24")
-        }
-        moodLayouts[2].setOnClickListener {
-            selectMood(it as LinearLayout, "Meh", "midatbest")
-        }
-        moodLayouts[3].setOnClickListener {
-            selectMood(it as LinearLayout, "Bad", "moodbad")
-        }
-        moodLayouts[4].setOnClickListener {
-            selectMood(it as LinearLayout, "Awful", "verybad")
-        }
+        // [UPDATED] Pass the specific colors you used in XML
+        moodLayouts[0].setOnClickListener { selectMood(it as LinearLayout, "Splendid", "verygood", "#4CAF50") }
+        moodLayouts[1].setOnClickListener { selectMood(it as LinearLayout, "Good", "outline_mood_24", "#8BC34A") }
+        moodLayouts[2].setOnClickListener { selectMood(it as LinearLayout, "Meh", "midatbest", "#FFC107") }
+        moodLayouts[3].setOnClickListener { selectMood(it as LinearLayout, "Bad", "moodbad", "#FF9800") }
+        moodLayouts[4].setOnClickListener { selectMood(it as LinearLayout, "Awful", "verybad", "#F44336") }
     }
 
     private fun setupWeatherListeners() {

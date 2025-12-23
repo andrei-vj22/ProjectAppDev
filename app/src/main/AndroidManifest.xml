@@ -24,6 +24,9 @@
             android:name=".SignUp"
             android:exported="true" />
         <activity
+            android:name=".Calendar"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

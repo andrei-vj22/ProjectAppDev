@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.text.format.DateFormat
 import android.widget.*
+import android.graphics.Color
 import android.view.LayoutInflater
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -59,55 +60,82 @@ class Home : AppCompatActivity() {
                 }
         }
 
-        conn.collection("tbl_entries").get().addOnSuccessListener { records ->
-            // Important: Clear the container if you plan to refresh this data
-            vlayout.removeAllViews()
+// Note: Ensure collection name matches where you saved it (likely "journals" from previous steps)
+        if (userId != null) {
+            conn.collection("tbl_entries")
+                .whereEqualTo("entryBy", userId) // Filter: Show only this user's entries
+                .get()
+                .addOnSuccessListener { records ->
 
-            for (record in records) {
-                val inflater = LayoutInflater.from(this)
-                val template = inflater.inflate(R.layout.activity_samplecard, vlayout, false)
+                    vlayout.removeAllViews() // Clear old data to prevent duplicates
 
-                // 1. Reference the views in your template
-                val txtDate: TextView = template.findViewById(R.id.txtDateejbvj)
-                val imgMood: ImageView = template.findViewById(R.id.imgMoodejbvj)
-                val txtTitle: TextView = template.findViewById(R.id.txtTitleejbvj)
-                val txtWeather: TextView = template.findViewById(R.id.txtWeatherejbvj)
-                val txtLoc: TextView = template.findViewById(R.id.txtLocejbvj)
-                val txtTimestamp: TextView = template.findViewById(R.id.txtTimeejbvj)
+                    for (record in records) {
+                        val inflater = LayoutInflater.from(this)
+                        val template =
+                            inflater.inflate(R.layout.activity_samplecard, vlayout, false)
 
-                // 2. Get data from the Firestore document
-                val title = record.getString("title") ?: "Untitled"
-                val weather = record.getString("weather") ?: ""
-                val location = record.getString("location") ?: ""
+                        // Reference Views
+                        val txtDate: TextView = template.findViewById(R.id.txtDateejbvj)
+                        val imgMood: ImageView = template.findViewById(R.id.imgMoodejbvj)
+                        val txtTitle: TextView = template.findViewById(R.id.txtTitleejbvj)
+                        val txtWeather: TextView = template.findViewById(R.id.txtWeatherejbvj)
+                        val txtLoc: TextView = template.findViewById(R.id.txtLocejbvj)
+                        val txtTimestamp: TextView = template.findViewById(R.id.txtTimeejbvj)
 
-                // This is the string filename from your database (e.g., "sunny_mood")
-                val moodSrcName = record.getString("moodSrc")
+                        // Get Data from Firestore
+                        val title = record.getString("title") ?: "Untitled"
+                        val weather = record.getString("weather") ?: ""
+                        val location = record.getString("location") ?: ""
+                        val dateEntry = record.getString("date") ?: ""
+                        val timeEntry = record.getString("time") ?: ""
 
-                // 3. Set the text views
-                txtTitle.text = title
-                txtWeather.text = weather
-                txtLoc.text = location
+                        // Icon & Color Logic
+                        // NOTE: Make sure these field names match exactly what you saved in entrypage.kt
+                        val moodSrcName = record.getString("moodicon")
+                        val moodColorHex = record.getString("moodcolor") // Get Hex Color
 
-                // 4. Dynamic Image Logic
-                if (!moodSrcName.isNullOrEmpty()) {
-                    // This finds the R.drawable ID by its string name
-                    val resID = resources.getIdentifier(moodSrcName, "drawable", packageName)
+                        // Set Text
+                        txtTitle.text = title
+                        txtWeather.text = weather
+                        txtLoc.text = location
+                        txtDate.text = dateEntry
+                        txtTimestamp.text = timeEntry
 
-                    if (resID != 0) {
-                        imgMood.setImageResource(resID)
-                    } else {
-                        // Fallback if the string in DB doesn't match a file in drawable folder
-                        imgMood.setImageResource(R.drawable.outline_mood_24)
+                        // Dynamic Image & Color Tint Logic
+                        if (!moodSrcName.isNullOrEmpty()) {
+                            val resID =
+                                resources.getIdentifier(moodSrcName, "drawable", packageName)
+
+                            if (resID != 0) {
+                                imgMood.setImageResource(resID)
+
+                                // Apply Color Tint if hex is available
+                                if (!moodColorHex.isNullOrEmpty()) {
+                                    try {
+                                        imgMood.setColorFilter(Color.parseColor(moodColorHex))
+                                    } catch (e: IllegalArgumentException) {
+                                        // Handle invalid hex code safely
+                                        imgMood.clearColorFilter()
+                                    }
+                                } else {
+                                    imgMood.clearColorFilter()
+                                }
+                            } else {
+                                // Fallback image if resource not found
+                                imgMood.setImageResource(R.drawable.outline_mood_24)
+                            }
+                        }
+
+                        // Add to Layout
+                        vlayout.addView(template)
                     }
                 }
-
-                // 5. Finally, add the filled template to your layout
-                vlayout.addView(template)
-            }
-        }.addOnFailureListener {
-            Toast.makeText(this, "Error fetching data", Toast.LENGTH_SHORT).show()
+                .addOnFailureListener {
+                    Toast.makeText(this, "Error fetching data", Toast.LENGTH_SHORT).show()
+                }
         }
 
+        // --- 3. PROFILE NAVIGATION ---
         imgProf.setOnClickListener {
             val intent = Intent(this, Profile::class.java)
             startActivity(intent)

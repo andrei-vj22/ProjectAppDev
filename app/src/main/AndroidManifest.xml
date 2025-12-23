@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectAppDev">
         <activity
+            android:name=".Calendar"
+            android:exported="true" />
+        <activity
             android:name=".Home"
             android:exported="true" />
         <activity
@@ -19,6 +22,9 @@
             android:exported="true" />
         <activity
             android:name=".SignUp"
+            android:exported="true" />
+        <activity
+            android:name=".Profile"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

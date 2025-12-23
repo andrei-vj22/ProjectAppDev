@@ -1,74 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="bottom"
     android:background="#F2F0EC"
-    tools:context=".Home" >
+    android:orientation="vertical"
+    tools:context=".Home">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="113dp"
-        android:text="Good day, Andrei!"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_date" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="end"
+        android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="371dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/outline_account_circle_24" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            app:srcCompat="@drawable/outline_account_circle_24" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txt_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="176dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#333D4F" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Good day, Andrei!"
+        android:textSize="24sp" />
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="409dp"
-        android:layout_height="513dp"
-        android:layout_marginStart="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="133dp">
+        android:layout_width="match_parent"
+        android:layout_height="625dp"
+        android:layout_weight="1">
 
         <LinearLayout
+            android:id="@+id/linlayejbvj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
 
     <LinearLayout
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:background="#E0B227"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"></LinearLayout>
+        android:background="#DCB027"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:tint="#FDFDFD"
+            app:srcCompat="@drawable/outline_account_balance_24" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="0"
+            app:cardBackgroundColor="#333D50"
+            app:cardCornerRadius="100dp">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:tint="#FDFDFD"
+                app:srcCompat="@drawable/outline_add_24" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:tint="#FDFDFD"
+            app:srcCompat="@drawable/outline_calendar_month_24" />
+    </LinearLayout>
+
+</LinearLayout>

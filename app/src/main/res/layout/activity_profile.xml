@@ -25,20 +25,127 @@
     <LinearLayout
         android:layout_width="414dp"
         android:layout_height="87dp"
-        android:layout_marginTop="645dp"
+        android:layout_marginTop="246dp"
         android:background="#E0B227"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/button"></LinearLayout>
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="161dp"
         android:text="My Profile"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="31dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_goback2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="147dp"
+        android:layout_marginEnd="261dp"
+        android:text="Profile Details:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_goback2" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="24dp"
+        android:text="Name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="51dp"
+        android:text="Email"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="246dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="246dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="46dp"
+        android:tint="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/textView10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:srcCompat="@drawable/outline_account_circle_24" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="49dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="41dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:srcCompat="@drawable/outline_attach_email_24" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="275dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="68dp"
+        android:backgroundTint="#BA0F0F"
+        android:text="Log out"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

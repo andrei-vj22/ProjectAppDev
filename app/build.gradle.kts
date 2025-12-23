@@ -53,4 +53,8 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.android.gms:play-services-auth:21.1.0")
+    // The Material Calendar View Library
+    implementation("com.github.mhiew:material-calendarview:2.0.3")
+    // Required for java.time support on older devices
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }

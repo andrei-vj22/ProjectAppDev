@@ -89,6 +89,10 @@ class SignIn : AppCompatActivity() {
         btnGoogle.setOnClickListener {
             googleLauncher.launch(googleClient.signInIntent)
         }
+        noAcc.setOnClickListener {
+            val intent = Intent(this, SignUp::class.java)
+            startActivity(intent)
+        }
         btnLog.setOnClickListener {
             val email = edtEmail.text.toString()
             val pass = edtPass.text.toString()

@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="bottom"
     android:background="#F2F0EC"
     android:orientation="vertical"
     tools:context=".Home">
@@ -33,7 +32,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="TextView"
+        android:text="Date"
         android:textColor="#333D4F" />
 
     <TextView
@@ -47,14 +46,16 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="625dp"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:id="@+id/linlayejbvj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:padding="10dp" />
     </ScrollView>
 
     <LinearLayout
@@ -65,37 +66,41 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:tint="#FDFDFD"
-            app:srcCompat="@drawable/outline_account_balance_24" />
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@drawable/outline_account_balance_24"
+            app:tint="#FDFDFD" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_weight="0"
             app:cardBackgroundColor="#333D50"
             app:cardCornerRadius="100dp">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/btnAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_weight="1"
-                android:tint="#FDFDFD"
-                app:srcCompat="@drawable/outline_add_24" />
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                app:srcCompat="@drawable/outline_add_24"
+                app:tint="#FDFDFD" />
         </androidx.cardview.widget.CardView>
 
         <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnAnalytics"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:tint="#FDFDFD"
-            app:srcCompat="@drawable/outline_calendar_month_24" />
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@drawable/outline_analytics_24"
+            app:tint="#FDFDFD" />
     </LinearLayout>
 
 </LinearLayout>

@@ -19,11 +19,13 @@ class Profile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_profile)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
+
         val txtName: TextView = findViewById(R.id.txtName)
         val txtEmail: TextView = findViewById(R.id.txtEmail)
         val btnLogout: Button = findViewById(R.id.btnLogout)
@@ -36,14 +38,28 @@ class Profile : AppCompatActivity() {
         val email = auth.currentUser!!.email
         val userid = auth.currentUser!!.uid
 
-        con.collection("tbl_users").document(userid).get()
-            .addOnSuccessListener {
-                    rec ->
-                val c_name = rec.getString("name")
+        val btnHome: ImageView = findViewById(R.id.btnHome1)
+        val btnAdd: ImageView = findViewById(R.id.btnAdd1)
+        val btnAnalytics: ImageView = findViewById(R.id.btnAnalytics1)
 
+        btnHome.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+        btnAdd.setOnClickListener {
+            val intent = Intent(this, mwselection::class.java)
+            startActivity(intent)
+        }
+        btnAnalytics.setOnClickListener {
+            val intent = Intent(this, Calendar::class.java)
+            startActivity(intent)
+        }
+
+        con.collection("tbl_users").document(userid).get()
+            .addOnSuccessListener { rec ->
+                val c_name = rec.getString("name")
                 txtName.text = name ?: c_name ?: "No name"
                 txtEmail.text = email
-
             }
 
         imgBack2.setOnClickListener {
@@ -55,14 +71,15 @@ class Profile : AppCompatActivity() {
             auth.signOut()
 
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))  // Web client ID
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build()
 
-            GoogleSignIn.getClient(this,gso).signOut()
+            GoogleSignIn.getClient(this, gso).signOut()
 
             val intent = Intent(this, SignIn::class.java)
             startActivity(intent)
             finish()
+        }
     }
-}}
+}

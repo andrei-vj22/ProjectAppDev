@@ -1,101 +1,153 @@
 package com.example.projectappdev
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.DayViewDecorator
-import com.prolificinteractive.materialcalendarview.DayViewFacade
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import com.prolificinteractive.materialcalendarview.spans.DotSpan
-import java.util.Calendar as JavaCalendar
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class Calendar : AppCompatActivity() {
-
-    lateinit var calendarView: MaterialCalendarView
-    val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_calendar)
 
-        val mainView = findViewById<View>(R.id.main)
-        ViewCompat.setOnApplyWindowInsetsListener(mainView) { v, insets ->
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
 
-        calendarView = findViewById(R.id.calendarView)
+
+        val db = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+
         val totalJournalsTxt: TextView = findViewById(R.id.textView12)
         val btnBack: ImageView = findViewById(R.id.img_goback2)
+        val barContainer: LinearLayout = findViewById(R.id.barContainer)
+
+
+        val btnHome: ImageView = findViewById(R.id.btnHome2)
+        val btnAdd: ImageView = findViewById(R.id.btnAdd2)
+        val btnAnalytics: ImageView = findViewById(R.id.btnAnalytics2)
 
         btnBack.setOnClickListener { finish() }
 
-        // Fetch data from Firestore
-        loadJournalData(totalJournalsTxt)
+        btnHome.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+        btnAdd.setOnClickListener {
+            val intent = Intent(this, mwselection::class.java)
+            startActivity(intent)
+        }
+        btnAnalytics.setOnClickListener {
+            val intent = Intent(this, Calendar::class.java)
+            startActivity(intent)
+        }
 
-        calendarView.setOnDateChangedListener { _, date, _ ->
-            Toast.makeText(this, "Date: ${date.day}/${date.month}/${date.year}", Toast.LENGTH_SHORT).show()
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            db.collection("tbl_entries")
+                .whereEqualTo("entryBy", userId)
+                .get()
+                .addOnSuccessListener { records ->
+                    totalJournalsTxt.text = records.size().toString()
+
+                    // Update UI components
+                    drawManualGraphByDay(records, barContainer)
+                    calculateMoodTotals(records)
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 
-    fun loadJournalData(totalJournalsTxt: TextView) {
-        db.collection("tbl_entries")
-            .get()
-            .addOnSuccessListener { result ->
-                totalJournalsTxt.text = result.size().toString()
 
-                val entryDates = mutableSetOf<CalendarDay>()
+    fun calculateMoodTotals(records: com.google.firebase.firestore.QuerySnapshot) {
+        var rad = 0; var good = 0; var meh = 0; var bad = 0; var awful = 0
 
-                for (document in result) {
-                    val timestamp = document.getTimestamp("date")
-                    if (timestamp != null) {
-                        val calendarDay = convertTimestampToCalendarDay(timestamp)
-                        entryDates.add(calendarDay)
+        val currentMonth = SimpleDateFormat("MMMM", Locale.US).format(java.util.Date())
+        val currentYear = SimpleDateFormat("yyyy", Locale.US).format(java.util.Date())
+
+        for (doc in records) {
+            val dateStr = doc.getString("date") ?: ""
+            if (dateStr.contains(currentMonth) && dateStr.contains(currentYear)) {
+                when (doc.getString("moodicon")) {
+                    "verygood" -> rad++
+                    "outline_mood_24" -> good++
+                    "midatbest" -> meh++
+                    "moodbad" -> bad++
+                    "verybad" -> awful++
+                }
+            }
+        }
+
+        findViewById<TextView>(R.id.tvCountSplendid).text = rad.toString()
+        findViewById<TextView>(R.id.tvCountGood).text = good.toString()
+        findViewById<TextView>(R.id.tvCountMeh).text = meh.toString()
+        findViewById<TextView>(R.id.tvCountBad).text = bad.toString()
+        findViewById<TextView>(R.id.tvCountAwful).text = awful.toString()
+    }
+
+    fun drawManualGraphByDay(records: com.google.firebase.firestore.QuerySnapshot, container: LinearLayout) {
+        container.removeAllViews()
+        val daysOfWeek = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+        val dayMap = daysOfWeek.associateWith { 0 }.toMutableMap()
+
+        val currentMonth = SimpleDateFormat("MMMM", Locale.US).format(java.util.Date())
+        val currentYear = SimpleDateFormat("yyyy", Locale.US).format(java.util.Date())
+        val inputFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.US)
+        val dayFormat = SimpleDateFormat("EEEE", Locale.US)
+
+        for (doc in records) {
+            val dateString = doc.getString("date") ?: ""
+            if (dateString.contains(currentMonth) && dateString.contains(currentYear)) {
+                try {
+                    val parsedDate = inputFormat.parse(dateString)
+                    parsedDate?.let {
+                        val dayName = dayFormat.format(it)
+                        dayMap[dayName] = dayMap.getOrDefault(dayName, 0) + 1
                     }
-                }
-
-                if (entryDates.isNotEmpty()) {
-                    calendarView.addDecorator(JournalDateDecorator(Color.RED, entryDates))
-                    calendarView.invalidateDecorators() // Forces the dots to draw
-                }
+                } catch (e: Exception) { /* Skip invalid dates */ }
             }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+
+        val maxEntries = dayMap.values.maxOrNull()?.coerceAtLeast(1) ?: 1
+        for (day in daysOfWeek) {
+            val count = dayMap[day]!!
+            val col = LinearLayout(this).apply {
+                orientation = LinearLayout.VERTICAL
+                gravity = Gravity.BOTTOM
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
             }
-    }
-
-    fun convertTimestampToCalendarDay(timestamp: Timestamp): CalendarDay {
-        val date = timestamp.toDate()
-        val cal = JavaCalendar.getInstance()
-        cal.time = date
-        // MaterialCalendarView uses 1-based months in many versions
-        return CalendarDay.from(
-            cal.get(JavaCalendar.YEAR),
-            cal.get(JavaCalendar.MONTH) + 1,
-            cal.get(JavaCalendar.DAY_OF_MONTH)
-        )
-    }
-}
-
-// Keeping the decorator in the same file, outside the Activity class
-class JournalDateDecorator(val color: Int, val dates: Collection<CalendarDay>) : DayViewDecorator {
-    val dateSet = HashSet(dates)
-
-    override fun shouldDecorate(day: CalendarDay): Boolean = dateSet.contains(day)
-
-    override fun decorate(view: DayViewFacade) {
-        view.addSpan(DotSpan(10f, color))
+            val bar = View(this).apply {
+                val h = (count.toFloat() / maxEntries.toFloat() * 300).toInt().coerceAtLeast(10)
+                layoutParams = LinearLayout.LayoutParams(40, h).apply {
+                    gravity = Gravity.CENTER_HORIZONTAL
+                    setMargins(0, 0, 0, 10)
+                }
+                setBackgroundColor(if (count > 0) Color.parseColor("#DCB027") else Color.parseColor("#E0E0E0"))
+            }
+            val label = TextView(this).apply {
+                text = day.substring(0, 3); textSize = 11f; gravity = Gravity.CENTER
+            }
+            col.addView(bar); col.addView(label); container.addView(col)
+        }
     }
 }

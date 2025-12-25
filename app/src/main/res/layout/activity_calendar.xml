@@ -153,6 +153,7 @@
                 android:id="@+id/btnHome2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/outline_account_balance_24"
                 app:tint="#FDFDFD" />
@@ -168,6 +169,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/outline_add_24"
                     app:tint="#FDFDFD" />
             </androidx.cardview.widget.CardView>
@@ -177,6 +179,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/outline_analytics_24"
                 app:tint="#FDFDFD" />
         </LinearLayout>

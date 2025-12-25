@@ -168,6 +168,7 @@
         <ImageView
             android:id="@+id/btnHome1"
             android:layout_width="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:layout_weight="1"
@@ -184,6 +185,7 @@
             <ImageView
                 android:id="@+id/btnAdd1"
                 android:layout_width="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:clickable="true"
@@ -195,6 +197,7 @@
             android:id="@+id/btnAnalytics1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_weight="1"
             android:clickable="true"
             android:tint="#FDFDFD"

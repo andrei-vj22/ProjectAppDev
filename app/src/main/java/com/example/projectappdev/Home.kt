@@ -12,7 +12,6 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,9 +78,13 @@ class Home : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { records ->
 
-                    vlayout.removeAllViews() // Clear list to avoid duplicates on refresh
+                    vlayout.removeAllViews()
 
-                    for (record in records) {
+                    val sortedRecords = records.documents.sortedByDescending {
+                        it.getLong("timestamp") ?: 0L
+                    }
+
+                    for (record in sortedRecords) {
                         val inflater = LayoutInflater.from(this)
                         val template = inflater.inflate(R.layout.activity_samplecard, vlayout, false)
 

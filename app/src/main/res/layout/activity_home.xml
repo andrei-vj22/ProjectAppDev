@@ -5,44 +5,58 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F0EC"
+    android:background="#F8F9FA"
     android:orientation="vertical"
     tools:context=".Home">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="end"
-        android:orientation="horizontal">
+        android:layout_height="60dp"
+        android:background="#FFFFFF"
+        android:elevation="2dp"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
 
         <ImageView
             android:id="@+id/imgProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            app:srcCompat="@drawable/outline_account_circle_24" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@drawable/outline_account_circle_24"
+            app:tint="#333D50" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_date"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Date"
-        android:textColor="#333D4F" />
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="20dp">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/acme"
-        android:text="Good Day!"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:alpha="0.7"
+            android:text="Date"
+            android:textAllCaps="true"
+            android:textColor="#333D4F"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/acme"
+            android:text="Good Day!"
+            android:textColor="#1A1C1E"
+            android:textSize="28sp" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -56,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp" />
+            android:padding="15dp" />
     </ScrollView>
 
     <LinearLayout
@@ -70,8 +84,8 @@
             android:id="@+id/btnHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
             app:srcCompat="@drawable/outline_account_balance_24"
@@ -100,8 +114,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:clickable="true"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:focusable="true"
             app:srcCompat="@drawable/outline_analytics_24"
             app:tint="#FDFDFD" />

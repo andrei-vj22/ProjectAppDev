@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/acme"
             android:text="Journo Statistics"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -72,6 +73,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:fontFamily="@font/acme"
             android:text="Entries This Month"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -93,9 +95,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"
-            android:textSize="18sp"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/acme"
             android:text="Mood Frequency (This Month)"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <LinearLayout

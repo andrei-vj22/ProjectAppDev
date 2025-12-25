@@ -67,6 +67,7 @@
             android:id="@+id/imgSelectedWeather"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:tint="@color/black"
             tools:src="@drawable/sunny" />
     </LinearLayout>
 

@@ -84,14 +84,14 @@ class mwselection : AppCompatActivity() {
         findViewById<Button>(R.id.btnNext).setOnClickListener {
             if (selectedMoodText != null && selectedWeatherText != null) {
                 val intent = Intent(this, journalentry::class.java)
-                intent.putExtra("moodtext", selectedMoodText)
+                intent.putExtra("mood", selectedMoodText)
                 intent.putExtra("moodicon", selectedMoodIcon)
                 intent.putExtra("moodcolor", selectedMoodColor)
-                intent.putExtra("weathertext", selectedWeatherText)
+                intent.putExtra("weather", selectedWeatherText)
                 intent.putExtra("weathericon", selectedWeatherIcon)
                 // Pass the strings directly from the TextViews
-                intent.putExtra("datetext", tvDate.text.toString())
-                intent.putExtra("timetext", tvTime.text.toString())
+                intent.putExtra("date", tvDate.text.toString())
+                intent.putExtra("time", tvTime.text.toString())
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Must Select Mood & Weather", Toast.LENGTH_SHORT).show()

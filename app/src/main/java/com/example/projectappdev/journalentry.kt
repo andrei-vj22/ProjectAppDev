@@ -26,12 +26,17 @@ class journalentry : AppCompatActivity() {
         }
 
         // 2. Retrieve Data passed from Previous Activity
-        val dateText = intent.getStringExtra("datetext") ?: ""
-        val timeText = intent.getStringExtra("timetext") ?: ""
-        val moodText = intent.getStringExtra("moodtext") ?: ""
+        var entryId: String? = intent.getStringExtra("entryid")
+        val existingTitle = intent.getStringExtra("title")
+        val existingContent = intent.getStringExtra("content")
+        val existingLocation = intent.getStringExtra("location")
+
+        val dateText = intent.getStringExtra("date") ?: ""
+        val timeText = intent.getStringExtra("time") ?: ""
+        val moodText = intent.getStringExtra("mood") ?: ""
         val moodIcon = intent.getStringExtra("moodicon") ?: ""
         val moodColor = intent.getStringExtra("moodcolor") ?: "#000000"
-        val weatherText = intent.getStringExtra("weathertext") ?: ""
+        val weatherText = intent.getStringExtra("weather") ?: ""
         val weatherIcon = intent.getStringExtra("weathericon") ?: ""
 
         // 3. Setup UI Elements
@@ -46,6 +51,15 @@ class journalentry : AppCompatActivity() {
         // Note: In your latest XML, you changed the ID to btnSave and it is a Button
         val btnSave = findViewById<Button>(R.id.btnSave)
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
+
+        if (entryId != null) {
+            etTitle.setText(existingTitle)
+            etContent.setText(existingContent)
+            etLocation.setText(existingLocation)
+
+            // Optional: Change Header to "Edit Entry"
+            findViewById<TextView>(R.id.tvHeader).text = "Edit Entry"
+        }
 
         // 4. Update UI with passed data
         tvDateDisplay.text = "$dateText • $timeText"
@@ -65,61 +79,73 @@ class journalentry : AppCompatActivity() {
             val currentUser = auth.currentUser
 
             if (currentUser != null) {
-                // Check if fields are empty
                 if (title.isNotEmpty() && content.isNotEmpty()) {
-                    saveToFirestore(
-                        currentUser.uid, // Pass the User UID here
-                        title, location, content,
-                        dateText, timeText, moodText, moodIcon, moodColor, weatherText, weatherIcon
+
+                    // Create the data map (Same for both add and update)
+                    val journalData = hashMapOf(
+                        "entryBy" to currentUser.uid,
+                        "title" to title,
+                        "location" to location,
+                        "content" to content,
+                        "date" to dateText,
+                        "time" to timeText,
+                        "mood" to moodText,       // Note: These will be what was passed in intent
+                        "moodicon" to moodIcon,
+                        "moodcolor" to moodColor,
+                        "weather" to weatherText,
+                        "weathericon" to weatherIcon,
+                        "timestamp" to System.currentTimeMillis()
                     )
+
+                    if (entryId != null) {
+                        // --- UPDATE EXISTING DOCUMENT ---
+                        db.collection("tbl_entries").document(entryId!!)
+                            .set(journalData) // .set() overwrites the document with new data
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Entry Updated!", Toast.LENGTH_SHORT).show()
+                                val intent =
+                                    Intent(this, Home::class.java) // Go back to Home
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                startActivity(intent)
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(
+                                    this,
+                                    "Error updating: ${e.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+
+                    } else {
+                        // --- CREATE NEW DOCUMENT (Old Logic) ---
+                        db.collection("tbl_entries")
+                            .add(journalData)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Entry Saved!", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, Home::class.java)
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                startActivity(intent)
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(
+                                    this,
+                                    "Error saving: ${e.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    }
+
                 } else {
-                    Toast.makeText(this, "Please enter a title and content", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please enter a title and content", Toast.LENGTH_SHORT)
+                        .show()
                 }
-            } else {
-                Toast.makeText(this, "Error: User not logged in", Toast.LENGTH_SHORT).show()
-                // Optional: Redirect to login page here if needed
             }
         }
     }
-
-    private fun saveToFirestore(
-        userUid: String, // Receive UID
-        title: String, location: String, content: String,
-        date: String, time: String, mood: String, moodIcon: String, moodColor: String, weather: String, weatherIcon: String
-    ) {
-        // Create Data Map
-        val journalEntry = hashMapOf(
-            "entryBy" to userUid, // Save the User UID!
-            "title" to title,
-            "location" to location,
-            "content" to content,
-            "date" to date,
-            "time" to time,
-            "mood" to mood,
-            "moodicon" to moodIcon,
-            "moodcolor" to moodColor,
-            "weather" to weather,
-            "weathericon" to weatherIcon,
-            "timestamp" to System.currentTimeMillis() // Good for sorting by "newest"
-        )
-
-        // Upload to "journals" collection
-        db.collection("tbl_entries")
-            .add(journalEntry)
-            .addOnSuccessListener {
-                Toast.makeText(this, "Entry Saved!", Toast.LENGTH_SHORT).show()
-
-                // Return to Home (MainActivity)
-                val intent = Intent(this, Home::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error saving: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-    }
-
     private fun setDynamicImage(imageView: ImageView, iconName: String, hexColor: String?) {
         if (iconName.isNotEmpty()) {
             val resourceId = resources.getIdentifier(iconName, "drawable", packageName)

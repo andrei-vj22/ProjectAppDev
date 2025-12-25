@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".samplecard">
 
     <androidx.cardview.widget.CardView
@@ -31,7 +31,7 @@
 
                 <TextView
                     android:id="@+id/txtDateejbvj"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="15dp"
@@ -39,6 +39,16 @@
                     android:paddingBottom="5dp"
                     android:text="DECEMBER 18, 2025"
                     android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/btnDelete"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    app:tint="#555555"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless" />
             </LinearLayout>
 
             <LinearLayout

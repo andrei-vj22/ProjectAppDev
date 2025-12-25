@@ -17,8 +17,6 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
@@ -29,34 +27,30 @@ class Home : AppCompatActivity() {
         val auth = FirebaseAuth.getInstance()
         val userId = auth.currentUser?.uid
 
-        // UI References
         val dateTextView: TextView = findViewById(R.id.txt_date)
         val formattedDate = DateFormat.format("EEEE, MMM d", System.currentTimeMillis())
         dateTextView.text = formattedDate
 
         val imgProf: ImageView = findViewById(R.id.imgProfile)
-        val vlayout: LinearLayout = findViewById(R.id.linlayejbvj) // The container for cards
+        val vlayout: LinearLayout = findViewById(R.id.linlayejbvj)
         val greetingText: TextView = findViewById(R.id.textView2)
 
-        // Navigation Buttons
         val btnHome: ImageView = findViewById(R.id.btnHome)
         val btnAdd: ImageView = findViewById(R.id.btnAdd)
         val btnAnalytics: ImageView = findViewById(R.id.btnAnalytics)
 
-        // --- NAVIGATION LOGIC ---
         btnHome.setOnClickListener {
-            // Already on Home, maybe scroll to top or refresh?
             startActivity(Intent(this, Home::class.java))
-            overridePendingTransition(0,0) // Optional: disables animation for "refresh" feel
+            overridePendingTransition(0,0)
         }
         btnAdd.setOnClickListener {
             startActivity(Intent(this, mwselection::class.java))
         }
         btnAnalytics.setOnClickListener {
-            startActivity(Intent(this, Calendar::class.java)) // Ensure you have a 'Calendar' activity
+            startActivity(Intent(this, Calendar::class.java))
         }
 
-        // --- GREETING LOGIC ---
+
         if (userId != null) {
             conn.collection("tbl_users").document(userId).get()
                 .addOnSuccessListener { record ->
@@ -71,9 +65,8 @@ class Home : AppCompatActivity() {
                 }
         }
 
-        // --- FETCH & DISPLAY ENTRIES ---
         if (userId != null) {
-            conn.collection("tbl_entries") // Matches your collection name
+            conn.collection("tbl_entries")
                 .whereEqualTo("entryBy", userId)
                 .get()
                 .addOnSuccessListener { records ->
@@ -88,7 +81,6 @@ class Home : AppCompatActivity() {
                         val inflater = LayoutInflater.from(this)
                         val template = inflater.inflate(R.layout.activity_samplecard, vlayout, false)
 
-                        // 1. Get View References
                         val txtDate: TextView = template.findViewById(R.id.txtDateejbvj)
                         val imgMood: ImageView = template.findViewById(R.id.imgMoodejbvj)
                         val txtTitle: TextView = template.findViewById(R.id.txtTitleejbvj)
@@ -97,7 +89,6 @@ class Home : AppCompatActivity() {
                         val txtTime: TextView = template.findViewById(R.id.txtTimeejbvj)
                         val btnDelete: ImageView = template.findViewById(R.id.btnDelete)
 
-                        // 2. Extract Data (Safely handling nulls)
                         val docId = record.id
                         val title = record.getString("title") ?: "Untitled"
                         val content = record.getString("content") ?: ""
@@ -105,14 +96,12 @@ class Home : AppCompatActivity() {
                         val dateEntry = record.getString("date") ?: ""
                         val timeEntry = record.getString("time") ?: ""
                         val weather = record.getString("weather") ?: ""
-                        val weatherIcon = record.getString("weathericon") ?: "" // Ensure casing matches DB
+                        val weatherIcon = record.getString("weathericon") ?: ""
 
-                        // Note: Using lowercase as per your previous code snippet
                         val moodSrcName = record.getString("moodicon")
                         val moodColorHex = record.getString("moodcolor")
                         val moodText = record.getString("mood") ?: ""
 
-                        // 3. Set Visuals
                         txtTitle.text = title
                         txtWeather.text = weather
                         txtLoc.text = location
@@ -120,15 +109,12 @@ class Home : AppCompatActivity() {
                         txtTime.text = timeEntry
 
                         btnDelete.setOnClickListener {
-                            // 1. Create the Confirmation Dialog
                             android.app.AlertDialog.Builder(this)
                                 .setTitle("Delete Entry")
                                 .setMessage("Are you sure you want to delete this journal entry?")
                                 .setPositiveButton("Yes") { _, _ ->
-                                    // 2. User said Yes -> Delete from Firestore
                                     conn.collection("tbl_entries").document(docId).delete()
                                         .addOnSuccessListener {
-                                            // 3. Remove the card from the screen immediately
                                             vlayout.removeView(template)
                                             Toast.makeText(this, "Entry Deleted", Toast.LENGTH_SHORT).show()
                                         }
@@ -136,11 +122,10 @@ class Home : AppCompatActivity() {
                                             Toast.makeText(this, "Failed to delete", Toast.LENGTH_SHORT).show()
                                         }
                                 }
-                                .setNegativeButton("No", null) // Do nothing on No
+                                .setNegativeButton("No", null)
                                 .show()
                         }
 
-                        // 4. Handle Icon & Color Tint
                         if (!moodSrcName.isNullOrEmpty()) {
                             val resID = resources.getIdentifier(moodSrcName, "drawable", packageName)
                             if (resID != 0) {
@@ -157,19 +142,15 @@ class Home : AppCompatActivity() {
                             }
                         }
 
-                        // 5. CLICK LISTENER -> Open EntryPage for Editing
                         template.setOnClickListener {
                             val intent = Intent(this, journalentry::class.java)
 
-                            // Pass ID so entrypage knows this is an EDIT
                             intent.putExtra("entryid", docId)
 
-                            // Pass Content for Editing
                             intent.putExtra("title", title)
                             intent.putExtra("content", content)
                             intent.putExtra("location", location)
 
-                            // Pass Visual Context (So the top of entrypage looks right)
                             intent.putExtra("date", dateEntry)
                             intent.putExtra("time", timeEntry)
                             intent.putExtra("mood", moodText)
@@ -180,8 +161,6 @@ class Home : AppCompatActivity() {
 
                             startActivity(intent)
                         }
-
-                        // 6. Add card to layout
                         vlayout.addView(template)
                     }
                 }

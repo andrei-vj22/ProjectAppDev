@@ -22,7 +22,7 @@
         app:tint="#000000" />
 
     <TextView
-        android:id="@+id/tvHeader"
+        android:id="@+id/tvHeaderejbvj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -45,10 +45,10 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHeader">
+        app:layout_constraintTop_toBottomOf="@+id/tvHeaderejbvj">
 
         <TextView
-            android:id="@+id/tvDateDisplay"
+            android:id="@+id/tvDateDisplayejbvj"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -57,14 +57,14 @@
             android:textSize="14sp" />
 
         <ImageView
-            android:id="@+id/imgSelectedMood"
+            android:id="@+id/imgSelectedMoodejbvj"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="8dp"
             tools:src="@drawable/verygood" />
 
         <ImageView
-            android:id="@+id/imgSelectedWeather"
+            android:id="@+id/imgSelectedWeatherejbvj"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:tint="@color/black"
@@ -72,7 +72,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/etTitle"
+        android:id="@+id/etTitleejbvj"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -98,7 +98,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTitle">
+        app:layout_constraintTop_toBottomOf="@+id/etTitleejbvj">
 
         <ImageView
             android:layout_width="20dp"
@@ -107,7 +107,7 @@
             app:tint="#EFB304" />
 
         <EditText
-            android:id="@+id/etLocation"
+            android:id="@+id/etLocationejbvj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -118,7 +118,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/etContent"
+        android:id="@+id/etContentejbvj"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"

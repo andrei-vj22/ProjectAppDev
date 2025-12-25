@@ -25,8 +25,7 @@ class journalentry : AppCompatActivity() {
             insets
         }
 
-        // 2. Retrieve Data passed from Previous Activity
-        var entryId: String? = intent.getStringExtra("entryid")
+        val entryId: String? = intent.getStringExtra("entryid")
         val existingTitle = intent.getStringExtra("title")
         val existingContent = intent.getStringExtra("content")
         val existingLocation = intent.getStringExtra("location")
@@ -39,16 +38,14 @@ class journalentry : AppCompatActivity() {
         val weatherText = intent.getStringExtra("weather") ?: ""
         val weatherIcon = intent.getStringExtra("weathericon") ?: ""
 
-        // 3. Setup UI Elements
-        val tvDateDisplay = findViewById<TextView>(R.id.tvDateDisplay)
-        val imgMood = findViewById<ImageView>(R.id.imgSelectedMood)
-        val imgWeather = findViewById<ImageView>(R.id.imgSelectedWeather)
+        val tvDateDisplay = findViewById<TextView>(R.id.tvDateDisplayejbvj)
+        val imgMood = findViewById<ImageView>(R.id.imgSelectedMoodejbvj)
+        val imgWeather = findViewById<ImageView>(R.id.imgSelectedWeatherejbvj)
 
-        val etTitle = findViewById<EditText>(R.id.etTitle)
-        val etLocation = findViewById<EditText>(R.id.etLocation)
-        val etContent = findViewById<EditText>(R.id.etContent)
+        val etTitle = findViewById<EditText>(R.id.etTitleejbvj)
+        val etLocation = findViewById<EditText>(R.id.etLocationejbvj)
+        val etContent = findViewById<EditText>(R.id.etContentejbvj)
 
-        // Note: In your latest XML, you changed the ID to btnSave and it is a Button
         val btnSave = findViewById<Button>(R.id.btnSave)
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
 
@@ -57,31 +54,27 @@ class journalentry : AppCompatActivity() {
             etContent.setText(existingContent)
             etLocation.setText(existingLocation)
 
-            // Optional: Change Header to "Edit Entry"
-            findViewById<TextView>(R.id.tvHeader).text = "Edit Entry"
+            findViewById<TextView>(R.id.tvHeaderejbvj).text = "Edit Entry"
         }
 
-        // 4. Update UI with passed data
         tvDateDisplay.text = "$dateText • $timeText"
         setDynamicImage(imgMood, moodIcon, moodColor)
         setDynamicImage(imgWeather, weatherIcon, null)
 
-        // 5. Back Button Logic
-        btnBack.setOnClickListener { finish() }
+        btnBack.setOnClickListener {
+            finish()
+        }
 
-        // 6. SAVE BUTTON LOGIC
         btnSave.setOnClickListener {
             val title = etTitle.text.toString().trim()
             val location = etLocation.text.toString().trim()
             val content = etContent.text.toString().trim()
 
-            // Get Current User
             val currentUser = auth.currentUser
 
             if (currentUser != null) {
                 if (title.isNotEmpty() && content.isNotEmpty()) {
 
-                    // Create the data map (Same for both add and update)
                     val journalData = hashMapOf(
                         "entryBy" to currentUser.uid,
                         "title" to title,
@@ -89,7 +82,7 @@ class journalentry : AppCompatActivity() {
                         "content" to content,
                         "date" to dateText,
                         "time" to timeText,
-                        "mood" to moodText,       // Note: These will be what was passed in intent
+                        "mood" to moodText,
                         "moodicon" to moodIcon,
                         "moodcolor" to moodColor,
                         "weather" to weatherText,
@@ -98,13 +91,11 @@ class journalentry : AppCompatActivity() {
                     )
 
                     if (entryId != null) {
-                        // --- UPDATE EXISTING DOCUMENT ---
-                        db.collection("tbl_entries").document(entryId!!)
-                            .set(journalData) // .set() overwrites the document with new data
+                        db.collection("tbl_entries").document(entryId!!).set(journalData)
                             .addOnSuccessListener {
                                 Toast.makeText(this, "Entry Updated!", Toast.LENGTH_SHORT).show()
                                 val intent =
-                                    Intent(this, Home::class.java) // Go back to Home
+                                    Intent(this, Home::class.java)
                                 intent.flags =
                                     Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                                 startActivity(intent)
@@ -119,9 +110,7 @@ class journalentry : AppCompatActivity() {
                             }
 
                     } else {
-                        // --- CREATE NEW DOCUMENT (Old Logic) ---
-                        db.collection("tbl_entries")
-                            .add(journalData)
+                        db.collection("tbl_entries").add(journalData)
                             .addOnSuccessListener {
                                 Toast.makeText(this, "Entry Saved!", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this, Home::class.java)
@@ -152,12 +141,11 @@ class journalentry : AppCompatActivity() {
             if (resourceId != 0) {
                 imageView.setImageResource(resourceId)
 
-                // If a color is provided, apply it
                 if (hexColor != null) {
                     try {
                         imageView.setColorFilter(Color.parseColor(hexColor))
                     } catch (e: Exception) {
-                        e.printStackTrace() // Fallback if hex code is invalid
+                        e.printStackTrace()
                     }
                 }
             }

@@ -32,7 +32,7 @@
                 app:tint="#070707" />
 
             <TextView
-                android:id="@+id/tvHeaderDate"
+                android:id="@+id/tvHeaderDateejbvj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
@@ -45,14 +45,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/dateContainer"
+                android:id="@+id/dateContainerejbvj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeaderDate">
+                app:layout_constraintTop_toBottomOf="@+id/tvHeaderDateejbvj">
 
                 <TextView
                     android:id="@+id/tvCurrentDate"
@@ -96,7 +96,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvHeaderMood"
+                android:id="@+id/tvHeaderMoodejbvj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="72dp"
@@ -106,20 +106,20 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dateContainer" />
+                app:layout_constraintTop_toBottomOf="@+id/dateContainerejbvj" />
 
             <LinearLayout
-                android:id="@+id/moodContainer"
+                android:id="@+id/moodContainerejbvj"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeaderMood"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeaderMoodejbvj"
                 tools:layout_editor_absoluteX="0dp">
 
                 <LinearLayout
-                    android:id="@+id/btnMoodSplendid"
+                    android:id="@+id/btnMoodSplendidejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -142,7 +142,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btnMoodGood"
+                    android:id="@+id/btnMoodGoodejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -165,7 +165,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btnMoodMeh"
+                    android:id="@+id/btnMoodMehejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -188,7 +188,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btnMoodBad"
+                    android:id="@+id/btnMoodBadejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -211,7 +211,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btnMoodAwful"
+                    android:id="@+id/btnMoodAwfulejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -235,7 +235,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvHeaderWeather"
+                android:id="@+id/tvHeaderWeatherejbvj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="96dp"
@@ -245,19 +245,19 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/moodContainer" />
+                app:layout_constraintTop_toBottomOf="@+id/moodContainerejbvj" />
 
             <LinearLayout
-                android:id="@+id/weatherContainer"
+                android:id="@+id/weatherContainerejbvj"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeaderWeather">
+                app:layout_constraintTop_toBottomOf="@+id/tvHeaderWeatherejbvj">
 
                 <LinearLayout
-                    android:id="@+id/btnWeatherSunny"
+                    android:id="@+id/btnWeatherSunnyejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -280,7 +280,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btnWeatherClouds"
+                    android:id="@+id/btnWeatherCloudsejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -303,7 +303,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btnWeatherRain"
+                    android:id="@+id/btnWeatherRainejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -326,7 +326,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btnWeatherSnow"
+                    android:id="@+id/btnWeatherSnowejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -349,7 +349,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/btnWeatherStorm"
+                    android:id="@+id/btnWeatherStormejbvj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

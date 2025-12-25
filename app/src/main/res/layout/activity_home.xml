@@ -40,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="@font/acme"
         android:text="Good Day!"
         android:textSize="24sp" />
 
@@ -69,6 +70,7 @@
             android:id="@+id/btnHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
@@ -86,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 app:srcCompat="@drawable/outline_add_24"
@@ -98,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:focusable="true"
             app:srcCompat="@drawable/outline_analytics_24"
             app:tint="#FDFDFD" />

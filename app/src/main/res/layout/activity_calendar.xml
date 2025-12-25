@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#F8F9FA"
     tools:context=".Calendar">
 
     <LinearLayout
@@ -16,6 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="83dp"
+            android:background="#FFFFFF"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
@@ -31,6 +32,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="10dp"
                 android:text="Insights"
+                android:textColor="#333D50"
                 android:textSize="20sp" />
             <ImageView
                 android:layout_width="100dp"
@@ -39,108 +41,140 @@
                 app:tint="#E0B227" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/acme"
-            android:text="Journo Statistics"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView12"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="0"
-            android:textColor="#333D50"
-            android:textSize="48sp"
-            android:textStyle="bold" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="35dp"
-            android:gravity="center"
-            android:text="Total Journals"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/acme"
-            android:text="Entries This Month"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/barContainer"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginHorizontal="25dp"
-            android:background="#F9F9F9"
-            android:gravity="bottom"
-            android:layout_marginBottom="35dp"
-            android:orientation="horizontal"
-            android:padding="10dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/acme"
+                            android:text="Journo Statistics"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/acme"
-            android:text="Mood Frequency (This Month)"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#333D50"
+                            android:textSize="48sp"
+                            android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:gravity="center">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Total Journals"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/verygood" app:tint="#4CAF50" />
-                <TextView android:id="@+id/tvCountSplendid" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Splendid" android:textSize="10sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/acme"
+                    android:text="Entries This Month"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="2dp">
+                    <LinearLayout
+                        android:id="@+id/barContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#FFFFFF"
+                        android:gravity="bottom"
+                        android:orientation="horizontal"
+                        android:padding="15dp" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/acme"
+                    android:text="Mood Frequency (This Month)"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="15dp"
+                        android:gravity="center">
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                            <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/verygood" app:tint="#4CAF50" />
+                            <TextView android:id="@+id/tvCountSplendid" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Splendid" android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                            <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/outline_mood_24" app:tint="#8BC34A" />
+                            <TextView android:id="@+id/tvCountGood" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Good" android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                            <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/midatbest" app:tint="#FFC107" />
+                            <TextView android:id="@+id/tvCountMeh" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Meh" android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                            <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/moodbad" app:tint="#FF9800" />
+                            <TextView android:id="@+id/tvCountBad" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bad" android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                            <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/verybad" app:tint="#F44336" />
+                            <TextView android:id="@+id/tvCountAwful" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Awful" android:textSize="10sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
-
-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/outline_mood_24" app:tint="#8BC34A" />
-                <TextView android:id="@+id/tvCountGood" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Good" android:textSize="10sp" />
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/midatbest" app:tint="#FFC107" />
-                <TextView android:id="@+id/tvCountMeh" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Meh" android:textSize="10sp" />
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/moodbad" app:tint="#FF9800" />
-                <TextView android:id="@+id/tvCountBad" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bad" android:textSize="10sp" />
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="35dp" android:layout_height="35dp" android:src="@drawable/verybad" app:tint="#F44336" />
-                <TextView android:id="@+id/tvCountAwful" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Awful" android:textSize="10sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
